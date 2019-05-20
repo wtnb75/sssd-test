@@ -1,0 +1,32 @@
+include: file:///etc/openldap/schema/cosine.ldif
+include: file:///etc/openldap/schema/inetorgperson.ldif
+include: file:///etc/openldap/schema/nis.ldif
+
+dn: olcDatabase=mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: mdb
+olcSuffix: dc=example,dc=com
+olcRootDN: cn=Manager,dc=example,dc=com
+olcDbDirectory: /var/lib/ldap
+
+olcDbMaxsize: 1073741824
+olcDbMode: 0600
+
+olcDbIndex: objectClass eq,pres
+olcDbIndex: entryCSN,entryUUID eq
+olcAccess: to * by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage by * break
+olcAccess: to attrs=userPassword by anonymous auth by * none
+olcAccess: to * by * read
+
+dn: dc=example,dc=com
+dc: example
+o: example.com
+objectClass: dcObject
+objectClass: organization
+
+dn: cn=Manager,dc=example,dc=com
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: Manager
+userPassword: {SSHA}QfY7cFwSiWeMohI31dKeEBABLGKdMGID

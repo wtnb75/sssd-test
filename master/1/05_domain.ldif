@@ -1,0 +1,6 @@
+dn: dc=docker,dc=local
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: docker local
+dc: docker

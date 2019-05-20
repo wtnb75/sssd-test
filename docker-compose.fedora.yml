@@ -1,0 +1,10 @@
+version: "3"
+services:
+  client:
+    container_name: client
+    build:
+      context: image.client-fedora
+    command: /wait-for-it.sh master:389 -t 120 -- sssd -i
+    volumes:
+      - ./client/sssd.conf:/usr/local/etc/sssd/sssd.conf
+    privileged: true

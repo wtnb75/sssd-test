@@ -1,0 +1,18 @@
+include: file:///etc/openldap/schema/cosine.ldif
+include: file:///etc/openldap/schema/inetorgperson.ldif
+include: file:///etc/openldap/schema/nis.ldif
+
+dn: olcDatabase=mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: mdb
+olcSuffix: dc=docker,dc=local
+olcRootDN: cn=Manager,dc=docker,dc=local
+olcDbDirectory: /var/lib/ldap
+olcDbMaxsize: 1073741824
+olcDbMode: 0600
+olcDbIndex: objectClass eq,pres
+olcDbIndex: entryCSN,entryUUID eq
+olcAccess: to * by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage by * break
+olcAccess: to attrs=userPassword by anonymous auth by * none
+olcAccess: to * by * read

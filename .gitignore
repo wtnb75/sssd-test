@@ -1,0 +1,8 @@
+.vagrant
+*.bak
+*.old
+*~
+*.swp
+*.rpm
+*.gz
+*.zip

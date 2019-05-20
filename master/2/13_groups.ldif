@@ -1,0 +1,10 @@
+dn: cn=group1,ou=Groups,dc=docker,dc=local
+objectClass: posixGroup
+cn: group1
+gidNumber: 20000
+
+dn: cn=group2,ou=Groups,dc=docker,dc=local
+objectClass: posixGroup
+cn: group2
+gidNumber: 20001
+memberUid: user1

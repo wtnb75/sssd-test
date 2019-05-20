@@ -1,0 +1,32 @@
+dn: cn=config
+changetype: modify
+replace: olcServerID
+olcServerID: 1000
+
+dn: olcOverlay=syncprov,olcDatabase={3}mdb,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+
+dn: olcDatabase={3}mdb,cn=config
+changetype: modify
+replace: olcSyncRepl
+olcSyncRepl: rid=000
+  provider=ldap://master
+  bindmethod=simple
+  binddn="cn=Manager,dc=docker,dc=local"
+  credentials=hello
+  type=refreshAndPersist
+  interval=00:00:01:00
+  retry="5 10 30 +"
+  scope=sub
+  searchbase="dc=docker,dc=local"
+  sizelimit=unlimited
+  timelimit=unlimited
+  network-timeout=30
+  timeout=60
+  keepalive=60:3:5
+  starttls=critical
+  tls_reqcert=never
+  tls_protocol_min=3.1

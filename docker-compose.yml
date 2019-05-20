@@ -1,0 +1,39 @@
+version: "3"
+services:
+  master:
+    container_name: master
+    image: local/openldap
+    build:
+      context: image.openldap
+    command: sh /w/boot.sh
+    volumes:
+      - ./master:/w
+      - /var/lib/ldap
+      - /etc/openldap/slapd.d
+  #slave1:
+  #  container_name: slave1
+  #  image: local/openldap
+  #  volumes:
+  #    - ./slave:/w
+  #    - /var/lib/ldap
+  #    - /etc/openldap/slapd.d
+  #  command: sh /w/boot.sh
+  #  depends_on: [master]
+  #slave2:
+  #  container_name: slave2
+  #  image: local/openldap
+  #  volumes:
+  #    - ./slave:/w
+  #    - /var/lib/ldap
+  #    - /etc/openldap/slapd.d
+  #  command: sh /w/boot.sh
+  #  depends_on: [master]
+  client:
+    container_name: client
+    build:
+      context: image.client
+    command: /wait-for-it.sh master:389 -t 120 -- sssd -i
+    volumes:
+      - ./client/sssd.conf:/etc/sssd/sssd.conf
+    #depends_on: [master]
+    privileged: true
