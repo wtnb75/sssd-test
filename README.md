@@ -1,3 +1,14 @@
+# note
+
+it was misconfiguration. [client/sssd.conf](client/sssd.conf) invalidate cache every seconds.
+
+```
+[domain/LDAP]
+entry_cache_timeout = 1
+ldap_sudo_full_refresh_interval = 1
+ldap_sudo_smart_refresh_interval = 1
+```
+
 # LDAP + SSSD test
 
 - chmod 600 client/sssd.conf
